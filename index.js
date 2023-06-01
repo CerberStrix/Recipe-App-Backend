@@ -9,9 +9,7 @@ import handleValidationErrors from './utils/handleValidationErrors.js';
 import { recipesValidation } from './validation.js';
 
 mongoose
-  .connect(
-    'mongodb+srv://cerber:keyCerber1488@cluster0.u8jnbab.mongodb.net/recipes?retryWrites=true&w=majority',
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log('DB OK'))
   .catch((err) => console.log('DB error', err));
 
@@ -44,7 +42,7 @@ app.post('/recipe', recipesValidation, handleValidationErrors, RecipeController.
 app.delete('/recipe/:id', RecipeController.remove);
 app.patch('/recipe/:id', recipesValidation, handleValidationErrors, RecipeController.update);
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
