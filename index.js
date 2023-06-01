@@ -8,8 +8,13 @@ import * as RecipeController from './controllers/RecipeController.js';
 import handleValidationErrors from './utils/handleValidationErrors.js';
 import { recipesValidation } from './validation.js';
 
+dotenv.config();
+
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(
+    process.env.MONGODB_URI ||
+      'mongodb+srv://cerber:keyCerber1488@cluster0.u8jnbab.mongodb.net/recipes?retryWrites=true&w=majority',
+  )
   .then(() => console.log('DB OK'))
   .catch((err) => console.log('DB error', err));
 
